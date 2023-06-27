@@ -5,12 +5,12 @@ A superset of SPWN that brings extra features
 ### Commands to run this example
 #### To automatically run this:
 ```
-spwn-plus -bi test.spwnp -r -o test.spwn
+spwn-plus -bi main.spwnp -r -o output.spwn
 ```
 
 #### To compile directly to SPWN:
 ```
-spwn-plus -bi test.spwnp -o test.spwn
+spwn-plus -bi main.spwnp -o output.spwn
 ```
 
 #### main.spwnp:
