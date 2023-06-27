@@ -12,13 +12,16 @@ module.exports = (cwd) => ({
     version: "1.0",
     description: "A superset of SPWN that brings extra features",
     flags: {
-		bundle: {
-			short: "-b",
-			description: "Option to bundle all modules in SPWN+ file",
-			init: () => {
-				options.bundle = { value: true, contents: cwd };
-			}
-		},
+        bundle: {
+            short: "-b",
+            description: "Option to bundle all modules in SPWN+ file",
+            init: () => {
+                options.bundle = {
+                    value: true,
+                    contents: cwd
+                };
+            }
+        },
         input: {
             short: "-i",
             description: "SPWN+ file to convert to normal SPWN",
@@ -27,7 +30,7 @@ module.exports = (cwd) => ({
             init: async (filename) => {
                 let file = fs.readFileSync(filename).toString();
                 let res = await process(file, options);
-				emitter.emit('output', res);
+                emitter.emit('output', res);
             },
         },
         output: {
@@ -35,11 +38,11 @@ module.exports = (cwd) => ({
             description: "Output file of transpiled SPWN+ file",
             required: true,
             amount_of_args: 1,
-            init: (filename) => {	
-				emitter.on('output', (output) => {
-					console.log('OUT:', output, filename)
-					fs.writeFileSync(filename, output);
-				});
+            init: (filename) => {
+                emitter.on('output', (output) => {
+                    console.log('OUT:', output, filename)
+                    fs.writeFileSync(filename, output);
+                });
             }
         }
     },
