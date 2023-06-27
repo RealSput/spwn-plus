@@ -163,7 +163,7 @@ async function bundle(input, cb, cwd) {
 }
 
 async function process(code, settings) {
-	if (settings.bundle.value) code = bundle(code, async (filename) => {
+	if (settings.bundle) code = bundle(code, async (filename) => {
 		if (filename.endsWith('spwnp')) {
 			let file = fs.readFileSync(filename).toString();
 			let r = await process(file, settings);
