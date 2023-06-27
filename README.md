@@ -7,11 +7,13 @@ A superset of SPWN that brings extra features
 ```
 spwn-plus -bi main.spwnp -r -o output.spwn
 ```
+##### Note: you can set flags & arguments with the `SPWN_RUN_FLAGS` environment variable. Example: `set SPWN_RUN_FLAGS="-l"`
 
 #### To compile directly to SPWN:
 ```
 spwn-plus -bi main.spwnp -o output.spwn
 ```
+
 
 #### main.spwnp:
 ```rs
