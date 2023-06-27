@@ -1,6 +1,7 @@
 const {
     wat_to_spwn
 } = require("./generate_spwn");
+const path = require('path');
 const fs = require('fs');
 
 async function wasm2wat(file) {
@@ -67,7 +68,10 @@ function wat_process(inp) {
 }
 
 function cr_regx(input) {
+    // Escape special regex characters
     const escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    // Match any character sequence that is not enclosed in quotes
     const regexPattern = `(?!(?:(?:[^"'\\\\]|\\\\.)*)['"])${escapedInput}`;
 
     return new RegExp(regexPattern, 'g');
@@ -136,6 +140,7 @@ function non_l1_vars(str) {
     return result;
 }
 
+
 function spread(str) {
     let array_track = {};
 
@@ -163,7 +168,24 @@ function spread(str) {
     return str;
 };
 
-async function process(code) {
+async function bundle(input, cb, cwd) {
+    const regex = /import\s+(['"])(.+?)\1/g;
+
+    return await replaceAsync(input, regex, async (__, _, substring) => '(() { ' + await cb(path.join(cwd, substring)) + '})()');
+}
+
+async function process(code, settings) {
+    if (settings.bundle.value) code = bundle(code, async (filename) => {
+        if (filename.endsWith('spwnp')) {
+            let file = fs.readFileSync(filename).toString();
+            let r = await process(file, settings);
+            return r;
+        } else
+            return fs.readFileSync(filename).toString();
+    }, settings.bundle.contents);
+
+    if (typeof code !== "string") code = await code;
+
     code = unknown_args(code);
     code = spread(code);
     code = await wasm(code);
