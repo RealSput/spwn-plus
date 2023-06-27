@@ -1,4 +1,4 @@
-# spwn-plus
+# SPWN+
 A superset of SPWN that brings extra features
 
 # Usage
