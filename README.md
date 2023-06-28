@@ -32,7 +32,7 @@ let test = (&unknown) { // we can use `&unknown` to say that we don't know the a
 	};
 
 	let arr = [args[0], args[1]];
-	other_func(...arr); // we use ... to spread the array, so instead of having the array as a single argument, we can use the values as parameters
+	add_two_numbers(...arr); // we use ... to spread the array, so instead of having the array as a single argument, we can use the values as parameters
 	
 	let exports = 你好.instantiate().exports; // instantiates the WASM module
 	exports.main(); // runs main function
