@@ -26,7 +26,11 @@ let add_two_numbers = (a, b) {
 
 let test = (&unknown) { // we can use `&unknown` to say that we don't know the amount of arguments
 	let args = &[unknown]; // we can then use `&[unknown]` to define the array that stores the arguments
-	
+
+	for i in args {
+		$.print(i);
+	};
+
 	let arr = [args[0], args[1]];
 	other_func(...arr); // we use ... to spread the array, so instead of having the array as a single argument, we can use the values as parameters
 	
